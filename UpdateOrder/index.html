@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            background-color: white;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .order-header div {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .status-bar div {
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .circle {
+            width: 12px;
+            height: 12px;
+            background-color: #007bff;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .line {
+            width: 20%;
+            height: 2px;
+            background-color: #ddd;
+            display: inline-block;
+        }
+
+        .confirmed {
+            color: #007bff;
+        }
+
+        .order-info {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .order-info div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .order-info div p {
+            margin: 0;
+            color: #555;
+        }
+
+        .product-list table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .product-list th, .product-list td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .product-list th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .product-list td {
+            color: #555;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .action-buttons button.cancel {
+            background-color: #dc3545;
+        }
+
+        .action-buttons button:hover {
+            opacity: 0.8;
+        }
+
+        .pickup-info {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .pickup-info div {
+            width: 48%;
+        }
+
+        .pickup-person {
+            display: flex;
+            align-items: center;
+        }
+
+        .pickup-person img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .total-row {
+            text-align: right;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .status-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .status-bar div {
+                margin-bottom: 10px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .pickup-info {
+                flex-direction: column;
+            }
+
+            .pickup-info div {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .pickup-person img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                font-size: 20px;
+            }
+
+            .order-header div {
+                font-size: 14px;
+            }
+
+            .status-bar div {
+                font-size: 12px;
+            }
+
+            .action-buttons button {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+
+            .pickup-person img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .product-list th, .product-list td {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">Confirmed</div>
+
+        <!-- Order Header -->
+        <div class="order-header">
+            <div>Order# 2123431</div>
+            <div>Pickup Time 7:00AM Tue 08/31</div>
+            <div>ETA N/A</div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div><span class="circle"></span><br>Placed<br>3:21PM Tue 08/31</div>
+            <div><span class="line"></span></div>
+            <div class="confirmed"><span class="circle"></span><br>Confirmed<br>3:01PM Wed 09/01 by Scott</div>
+            <div><span class="line"></span></div>
+            <div><span class="circle"></span><br>In Progress</div>
+            <div><span class="line"></span></div>
+            <div><span class="circle"></span><br>Ready to Pickup</div>
+            <div><span class="line"></span></div>
+            <div><span class="circle"></span><br>Complete</div>
+        </div>
+
+        <!-- Order Info Section -->
+        <div class="order-info">
+            <div>
+                <p><strong>Customer ID</strong><br>1232143</p>
+                <p><strong>PO#</strong><br>235465245325</p>
+            </div>
+            <div>
+                <p><strong>Company</strong><br>Michael Construction Inc</p>
+                <p><strong>Account #</strong><br>4245325</p>
+            </div>
+        </div>
+
+        <!-- Product List Section -->
+
+        <h1>Products Order Form</h1>
+        <p class="form-description">What are you interested in buying?</p>
+
+        <!-- Product List Table -->
+        <table>
+            <tr>
+                <th>Product List</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td>Product 1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Product 2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Product 3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Product 4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Product 5</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Product 6</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button>Assign Order</button>
+            <button class="cancel">Unconfirm Order</button>
+            <button>Reschedule Order</button>
+            <button class="cancel">Cancel Order</button>
+        </div>
+
+        <!-- Pickup Info Section -->
+        <div class="pickup-info">
+            <div>
+                <p><strong>Pickup Person</strong><br>Michael Jordan</p>
+                <p><strong>Phone #</strong><br>917-849-9234</p>
+            </div>
+            <div class="pickup-person">
+                <p>Change Pickup Person</p>
+                <img src="men.jpg" alt="Pickup Person"/>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
